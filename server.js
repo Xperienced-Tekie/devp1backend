@@ -9,6 +9,7 @@ import { getChatMessages, postChatMessage } from "./routes/chatmessages.js";
 import { registerUser } from "./routes/registerUser.js";
 import { POST } from "./routes/loginUser.js";
 import { createOrFindChatChannel } from "./routes/Chatchannels.js";
+import { getAllUsers } from "./routes/Getallusers.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -63,6 +64,7 @@ app.post("/chat/channel", createOrFindChatChannel)
 app.post('/chat/message', postChatMessage);
 app.get('/chat/messages/:chatChannelId', getChatMessages);
 app.get("/userInfo", getUseInfo);
+app.get("/users", getAllUsers);
 
 io.on("connection", (socket) => {
   console.log("User connected", socket.id);
