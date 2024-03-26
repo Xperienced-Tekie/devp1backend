@@ -144,7 +144,7 @@ export async function createOrFindChatChannel(req, res) {
         },
       },
       include: {
-        users: true, // Include user details
+        users: true, 
       },
     });
 

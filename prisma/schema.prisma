@@ -16,6 +16,8 @@ model User {
   updateAt  DateTime  @updatedAt
   NFTs      Nftpost[]
   balance   Float     @default(0.0)
+    chatChannels  ChatChannel[] @relation("UserChatChannels") 
+  messages      ChatMessage[] 
 }
 
 model Nftpost {
@@ -41,9 +43,22 @@ model BlogPost {
 }
 
 model ChatChannel {
-  id          Int      @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String?
-  isDirect    Boolean  @default(false)
-  users       User[]   @relation(references: [id])
+  isDirect    Boolean       @default(false)
+  users       User[]        @relation("UserChatChannels") 
+  messages    ChatMessage[] 
 }
+
+model ChatMessage {
+  id            Int          @id @default(autoincrement())
+  content       String
+  createdAt     DateTime     @default(now())
+  userId        Int
+  chatChannelId Int
+  user          User         @relation(fields: [userId], references: [id])
+  chatChannel   ChatChannel  @relation(fields: [chatChannelId], references: [id])
+}
+
+
 
