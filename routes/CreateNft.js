@@ -10,67 +10,6 @@ const db = new PrismaClient();
 // Load environment variables
 dotenv.config();
 
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *
- * /createNft:
- *   post:
- *     tags:
- *       - NFT
- *     description: Create a new NFT
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *               blockchain:
- *                 type: string
- *               image:
- *                 type: string
- *                 format: binary
- *             required:
- *               - name
- *               - description
- *               - blockchain
- *               - image
- *     responses:
- *       201:
- *         description: Successfully created the NFT
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 name:
- *                   type: string
- *                 image:
- *                   type: string
- *                 description:
- *                   type: string
- *                 blockchain:
- *                   type: string
- *                 userId:
- *                   type: string
- *       400:
- *         description: Bad request - Missing required fields or No image uploaded
- *       401:
- *         description: Authentication failed
- *       500:
- *         description: Internal Server Error
- */
 
 export async function createNft(req, res) {
   try {

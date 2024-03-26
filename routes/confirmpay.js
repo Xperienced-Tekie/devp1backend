@@ -6,32 +6,6 @@ const db = new PrismaClient();
 
 dotenv.config;
 
-/**
- * @swagger
- * /confirm-payment/{tokenId}:
- *   patch:
- *     tags:
- *       - NFT
- *     security:
- *       - bearerAuth: []
- *     description: Confirm the payment of an NFT based on token ID
- *     parameters:
- *       - in: path
- *         name: tokenId
- *         required: true
- *         description: ID of the NFT token to confirm payment
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Payment confirmed successfully
- *       400:
- *         description: Bad request - Token ID is required
- *       404:
- *         description: NFT not found
- *       500:
- *         description: Internal Server Error
- */
 export async function confirmPayment(req, res) {
   const tokenId = parseInt(req.params.id);
   console.log("faith", tokenId);

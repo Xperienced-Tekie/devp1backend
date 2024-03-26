@@ -4,35 +4,6 @@ import dotenv from "dotenv";
 const db = new PrismaClient();
 dotenv.config();
 
-/**
- * @swagger
- * /blogposts:
- *   get:
- *     tags:
- *       - BlogPosts
- *     description: Retrieve a list of all blog posts
- *     responses:
- *       200:
- *         description: Successfully retrieved all blog posts
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   title:
- *                     type: string
- *                   content:
- *                     type: string
- *                   createdAt:
- *                     type: string
- *                     format: date-time
- *       500:
- *         description: Internal Server Error
- */
 
 export async function getAllBlogPosts(req, res) {
   try {

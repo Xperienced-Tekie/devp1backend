@@ -1,46 +1,5 @@
 import nftData from "../nftData.json" assert { type: "json" };
 
-/**
- * @swagger
- * /nft:
- *   get:
- *     tags:
- *       - NFT
- *     description: Fetches shuffled NFTs from the data file
- *     responses:
- *       200:
- *         description: Successfully retrieved the NFTs
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   name:
- *                     type: string
- *                   description:
- *                     type: string
- *                   token_id:
- *                     type: string
- *                   address:
- *                     type: string
- *                   image:
- *                     type: string
- *                   video:
- *                     type: string
- *                   date:
- *                     type: string
- *                   blockchain:
- *                     type: string
- *                   price:
- *                     type: number
- *       405:
- *         description: Method not allowed
- *       500:
- *         description: Internal Server Error
- */
-
 // Fisher-Yates shuffle algorithm
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {

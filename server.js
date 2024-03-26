@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import { getUseInfo } from "./routes/userInfo.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 
 import { registerUser } from "./routes/registerUser.js";
@@ -22,7 +23,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: "http://localhost:3001",
       },
       { url: "https://nftapis.onrender.com" },
     ],
@@ -46,8 +47,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.json());
 
 
+
 app.post("/register", registerUser);
 app.post("/login", POST);
+
+ app.get("/userInfo", getUseInfo);
 
 
 app.listen(PORT, () => {

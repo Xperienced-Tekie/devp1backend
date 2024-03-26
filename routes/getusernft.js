@@ -3,47 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
 
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *
- * /mynfts:
- *   get:
- *     tags:
- *       - User NFTs
- *     description: Get NFTs of the authenticated user
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Successfully retrieved the NFTs
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   name:
- *                     type: string
- *                   image:
- *                     type: string
- *                   description:
- *                     type: string
- *                   blockchain:
- *                     type: string
- *                   userId:
- *                     type: string
- *       401:
- *         description: Authentication failed
- *       500:
- *         description: Internal Server Error
- */
+
 
 export async function getUserNFTs(req, res) {
   try {

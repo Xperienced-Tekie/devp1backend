@@ -5,39 +5,6 @@ import { authenticateUser } from "../middleware/auth.js";
 const db = new PrismaClient();
 
 dotenv.config;
-/**
- * @swagger
- * /updateBalance:
- *   patch:
- *     tags:
- *       - Users
- *     description: Update a user's balance
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               balance:
- *                 type: number
- *             required:
- *               - email
- *               - balance
- *     responses:
- *       200:
- *         description: Successfully updated the user's balance
- *       400:
- *         description: Bad request - Email or balance not provided
- *       404:
- *         description: User not found
- *       500:
- *         description: Internal Server Error
- */
 
 
 export async function updateUserBalance(req, res) {

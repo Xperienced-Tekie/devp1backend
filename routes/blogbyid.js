@@ -4,44 +4,7 @@ import dotenv from "dotenv";
 const db = new PrismaClient();
 dotenv.config();
 
-// ... [existing code for getAllBlogPosts]
 
-/**
- * @swagger
- * /blogposts/{id}:
- *   get:
- *     tags:
- *       - BlogPosts
- *     description: Retrieve a specific blog post by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: The ID of the blog post to retrieve
- *     responses:
- *       200:
- *         description: Successfully retrieved the blog post
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                 title:
- *                   type: string
- *                 content:
- *                   type: string
- *                 createdAt:
- *                   type: string
- *                   format: date-time
- *       404:
- *         description: Blog post not found
- *       500:
- *         description: Internal Server Error
- */
 
 export async function getBlogPostById(req, res) {
   const { id } = req.params;

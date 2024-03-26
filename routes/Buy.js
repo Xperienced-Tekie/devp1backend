@@ -8,45 +8,6 @@ const db = new PrismaClient();
 
 dotenv.config;
 
-/**
- * @swagger
- * /buy/{tokenid}:
- *   post:
- *     tags:
- *       - NFT
- *     description: Buy an NFT based on token ID
- *     parameters:
- *       - in: path
- *         name: tokenid
- *         required: true
- *         description: ID of the NFT token to buy
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Successfully bought the NFT and returns the uploaded NFT data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 name:
- *                   type: string
- *                 image:
- *                   type: string
- *                 description:
- *                   type: string
- *                 blockchain:
- *                   type: string
- *                 userId:
- *                   type: string
- *       400:
- *         description: Bad request - Token ID is required
- *       404:
- *         description: NFT not found
- *       500:
- *         description: Internal Server Error
- */
 export async function buy(req, res) {
   const tokenId = req.params.tokenid;
 

@@ -1,42 +1,6 @@
 import nftData from "../nftData.json" assert { type: "json" };
 
-/**
- * @swagger
- * /nft/{tokenid}:
- *   get:
- *     tags:
- *       - NFT
- *     description: Get an NFT based on token ID
- *     parameters:
- *       - in: path
- *         name: tokenid
- *         required: true
- *         description: ID of the NFT token to retrieve
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Successfully retrieved the NFT data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 name:
- *                   type: string
- *                 image:
- *                   type: string
- *                 description:
- *                   type: string
- *                 blockchain:
- *                   type: string
- *       400:
- *         description: Bad request - Token ID is required
- *       404:
- *         description: NFT not found
- *       500:
- *         description: Internal Server Error
- */
+
 export async function getNFT(req, res) {
   const tokenId = req.params.tokenid;
 

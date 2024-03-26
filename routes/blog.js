@@ -9,49 +9,6 @@ const db = new PrismaClient();
 // Load environment variables
 dotenv.config();
 
-/**
- * @swagger
- * /createBlogPost:
- *   post:
- *     tags:
- *       - Blog
- *     description: Create a new blog post
- *     requestBody:
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               content:
- *                 type: string
- *               image:
- *                 type: string
- *                 format: binary
- *             required:
- *               - title
- *               - content
- *               - image
- *     responses:
- *       201:
- *         description: Successfully created the blog post
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 title:
- *                   type: string
- *                 image:
- *                   type: string
- *                 content:
- *                   type: string
- *       400:
- *         description: Bad request - Missing required fields or No image uploaded
- *       500:
- *         description: Internal Server Error
- */
 
 export async function createBlogPost(req, res) {
   try {
