@@ -106,51 +106,65 @@ const db = new PrismaClient();
 
 
 // Function to create or find a one-on-one chat channel
+// import { PrismaClient } from "@prisma/client";
+// import { authenticateUser } from "../middleware/auth.js";
+
+// const db = new PrismaClient();
+
 export async function createOrFindChatChannel(req, res) {
-  try {
-    // Authenticate the user
-    await authenticateUser(req, res);
-    const myId = req.user.userId;
-    const partnerId = req.body.partnerId;
+    try {
+        // Authenticate the user
+        await authenticateUser(req, res);
+        const myId = req.user.userId;
+        const { partnerId } = req.body;
 
-    if (!partnerId) {
-      return res.status(400).json({ message: "Partner user ID is required." });
+        if (!partnerId) {
+            return res.status(400).json({ message: "Partner user ID is required." });
+        }
+
+        const myUser = await db.user.findUnique({ where: { id: myId } });
+        const partnerUser = await db.user.findUnique({ where: { id: partnerId } });
+
+        if (!myUser) {
+            return res.status(404).json({ message: "Your user account was not found." });
+        }
+
+        if (!partnerUser) {
+            return res.status(404).json({ message: `User with ID ${partnerId} not found.` });
+        }
+        const existingChannel = await db.chatChannel.findFirst({
+            where: {
+                AND: [
+                    { users: { some: { id: myId } } },
+                    { users: { some: { id: partnerId } } },
+                    { isDirect: true }
+                ],
+            },
+            include: {
+                users: true,
+            },
+        });
+
+        if (existingChannel) {
+            return res.status(200).json({ message: "Chat channel already exists.", channel: existingChannel });
+        }
+
+        const newChannel = await db.chatChannel.create({
+            data: {
+                isDirect: true,
+                users: {
+                    connect: [{ id: myId }, { id: partnerId }],
+                },
+            },
+            include: {
+                users: true,
+            },
+        });
+
+        return res.status(201).json({ message: "Chat channel created successfully.", channel: newChannel });
+    } catch (error) {
+        console.error("Error creating or finding chat channel:", error);
+        return res.status(500).json({ message: "Internal server error", details: error.message });
     }
-
-    // Check if a one-on-one channel already exists between the two users
-    const existingChannel = await db.chatChannel.findFirst({
-      where: {
-        AND: [
-          { users: { some: { id: myId } } },
-          { users: { some: { id: partnerId } } },
-          { isDirect: true }
-        ],
-      },
-      include: {
-        users: true, // Include user details
-      },
-    });
-
-    if (existingChannel) {
-      return res.status(200).json({ message: "Chat channel already exists.", channel: existingChannel });
-    }
-
-    // If not, create a new chat channel
-    const newChannel = await db.chatChannel.create({
-      data: {
-        isDirect: true,
-        users: {
-          connect: [{ id: myId }, { id: partnerId }],
-        },
-      },
-      include: {
-        users: true, 
-      },
-    });
-
-    return res.status(201).json({ message: "Chat channel created successfully.", channel: newChannel });
-  } catch (error) {
-    console.error("Error creating or finding chat channel:", error);
-    return res.status(500).json({ message: "Internal server error", details: error.message });
-  }
 }
+
